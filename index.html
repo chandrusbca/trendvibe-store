@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>TrendVibe Store</title>
+  <style>
+    body { font-family: Arial; padding: 20px; background: #fdf4ff; }
+    header { background: #7e22ce; color: white; padding: 10px; border-radius: 5px; }
+    .card { background: white; border: 1px solid #ccc; padding: 10px; margin: 10px 0; border-radius: 5px; }
+    button { background: #9333ea; color: white; border: none; padding: 5px 10px; cursor: pointer; border-radius: 3px; }
+    .bill-box { background: #fff; padding: 10px; border: 2px solid #7e22ce; margin-top: 15px; }
+  </style>
+</head>
+<body>
+ 
+  <header>
+    <h2>TrendVibe Fashion</h2>
+  </header>
+ 
+  <div id="items"></div>
+ 
+  <div class="bill-box">
+    <h3>Shopping Bag</h3>
+    <p>Items in Bag: <span id="count">0</span></p>
+    <p>Total Bill: &#8377;<span id="total">0</span></p>
+    <button onclick="buy()" style="background: green;">Buy Now</button>
+  </div>
+ 
+  <script>
+    // 1. Product List (Array)
+    let products = [
+      { name: "Denim Jacket", price: 1500 },
+      { name: "White Sneakers", price: 2000 },
+      { name: "Leather Watch", price: 1000 }
+    ];
+ 
+    let totalCount = 0;
+    let totalPrice = 0;
+    let listDiv = document.getElementById("items");
+ 
+    // 2. Display products on screen
+    for (let i = 0; i < products.length; i++) {
+      listDiv.innerHTML += `
+        <div class="card">
+          <h4>${products[i].name}</h4>
+          <p>Price: &#8377;${products[i].price}</p>
+          <button onclick="add(${products[i].price})">Add to Bag</button>
+        </div>
+      `;
+    }
+ 
+    // 3. Add to Bag logic
+    function add(price) {
+      totalCount = totalCount + 1;
+      totalPrice = totalPrice + price;
+      document.getElementById("count").innerText = totalCount;
+      document.getElementById("total").innerText = totalPrice;
+    }
+ 
+    // 4. Buy logic
+    function buy() {
+      if (totalPrice == 0) {
+        alert("Please add items to bag!");
+      } else {
+        alert("Order Success! Total Bill: ₹" + totalPrice);
+      }
+    }
+  </script>
+ 
+</body>
+</html>
+ 
