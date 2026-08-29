@@ -1,74 +1,75 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>TrendVibe Store</title>
-  <style>
-    body { font-family: Arial; padding: 20px; background: #fdf4ff; }
-    header { background: #7e22ce; color: white; padding: 10px; border-radius: 5px; }
-    .card { background: white; border: 1px solid #ccc; padding: 10px; margin: 10px 0; border-radius: 5px; }
-    button { background: #9333ea; color: white; border: none; padding: 5px 10px; cursor: pointer; border-radius: 3px; }
-    .bill-box { background: #fff; padding: 10px; border: 2px solid #7e22ce; margin-top: 15px; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TrendVibe Store</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: Arial, sans-serif; background: #faf5ff; padding: 10px; margin: 0; text-align: center; }
+  header { background: #7e22ce; color: white; padding: 10px; border-radius: 6px; }
+  .card { background: white; border: 1px solid #ccc; margin: 12px auto; padding: 10px; max-width: 260px; border-radius: 8px; }
+  .card img { width: 100%; height: 140px; object-fit: cover; border-radius: 6px; }
+  .card h4 { margin: 8px 0 4px; font-size: 16px; color: #333; }
+  .card p { margin: 4px 0 8px; font-weight: bold; color: #555; }
+  button { background: #9333ea; color: white; border: none; padding: 8px 12px; border-radius: 4px; font-weight: bold; cursor: pointer; width: 100%; }
+  .cart-box { background: white; border: 2px solid #7e22ce; margin: 15px auto; padding: 12px; max-width: 260px; border-radius: 8px; }
+  .buy-btn { background: #16a34a; margin-top: 8px; }
+</style>
 </head>
 <body>
  
   <header>
-    <h2>TrendVibe Fashion</h2>
+    <h3 style="margin:0;">TrendVibe Fashion</h3>
   </header>
-  <img src="https://images.unsplash.com/photo-1576995853123-5a10305d93c0?w=300" style="width:100%; height:160px; object-fit:cover; border-radius:6px;">
  
-  <div id="items"></div>
- 
-  <div class="bill-box">
-    <h3>Shopping Bag</h3>
-    <p>Items in Bag: <span id="count">0</span></p>
-    <img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?w=300" style="width:100%; height:160px; object-fit:cover; border-radius:6px;">
-    <p>Total Bill: &#8377;<span id="total">0</span></p>
-    <button onclick="buy()" style="background: green;">Buy Now</button>
+  <div class="card">
+    <img src="https://images.unsplash.com/photo-1576995853123-5a10305d93c0?w=300" alt="Denim Jacket">
+    <h4>Denim Jacket</h4>
+    <p>Price: &#8377;1500</p>
+    <button onclick="add(1500)">Add to Bag</button>
   </div>
  
-  <script>
-    // 1. Product List (Array)
-    <img src="https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=300" style="width:100%; height:160px; object-fit:cover; border-radius:6px;">
-    let products = [
-      { name: "Denim Jacket", price: 1500 },
-      { name: "White Sneakers", price: 2000 },
-      { name: "Leather Watch", price: 1000 }
-    ];
+  <div class="card">
+    <img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?w=300" alt="White Sneakers">
+    <h4>White Sneakers</h4>
+    <p>Price: &#8377;2000</p>
+    <button onclick="add(2000)">Add to Bag</button>
+  </div>
  
-    let totalCount = 0;
-    let totalPrice = 0;
-    let listDiv = document.getElementById("items");
+  <div class="card">
+    <img src="https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=300" alt="Leather Watch">
+    <h4>Leather Watch</h4>
+    <p>Price: &#8377;1000</p>
+    <button onclick="add(1000)">Add to Bag</button>
+  </div>
  
-    // 2. Display products on screen
-    for (let i = 0; i < products.length; i++) {
-      listDiv.innerHTML += `
-        <div class="card">
-          <h4>${products[i].name}</h4>
-          <p>Price: &#8377;${products[i].price}</p>
-          <button onclick="add(${products[i].price})">Add to Bag</button>
-        </div>
-      `;
+  <div class="cart-box">
+    <h4 style="margin:0 0 8px;">Shopping Bag</h4>
+    <p style="margin:4px 0;">Items: <b id="count">0</b></p>
+    <p style="margin:4px 0;">Total: &#8377;<b id="total">0</b></p>
+    <button class="buy-btn" onclick="buy()">Buy Now</button>
+  </div>
+ 
+<script>
+  var total = 0;
+  var count = 0;
+ 
+  function add(price) {
+    count = count + 1;
+    total = total + price;
+    document.getElementById("count").innerText = count;
+    document.getElementById("total").innerText = total;
+  }
+ 
+  function buy() {
+    if (total === 0) {
+      alert("Bag is empty! Please add items to your cart first.");
+    } else {
+      alert("Order Placed Successfully!\nTotal Items: " + count + "\nTotal Amount: Rs. " + total);
     }
- 
-    // 3. Add to Bag logic
-    function add(price) {
-      totalCount = totalCount + 1;
-      totalPrice = totalPrice + price;
-      document.getElementById("count").innerText = totalCount;
-      document.getElementById("total").innerText = totalPrice;
-    }
- 
-    // 4. Buy logic
-    function buy() {
-      if (totalPrice == 0) {
-        alert("Please add items to bag!");
-      } else {
-        alert("Order Success! Total Bill: ₹" + totalPrice);
-      }
-    }
-  </script>
+  }
+</script>
  
 </body>
 </html>
- 
