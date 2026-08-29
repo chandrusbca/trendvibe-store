@@ -1,75 +1,151 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TrendVibe Store</title>
-<style>
-  * { box-sizing: border-box; }
-  body { font-family: Arial, sans-serif; background: #faf5ff; padding: 10px; margin: 0; text-align: center; }
-  header { background: #7e22ce; color: white; padding: 10px; border-radius: 6px; }
-  .card { background: white; border: 1px solid #ccc; margin: 12px auto; padding: 10px; max-width: 260px; border-radius: 8px; }
-  .card img { width: 100%; height: 140px; object-fit: cover; border-radius: 6px; }
-  .card h4 { margin: 8px 0 4px; font-size: 16px; color: #333; }
-  .card p { margin: 4px 0 8px; font-weight: bold; color: #555; }
-  button { background: #9333ea; color: white; border: none; padding: 8px 12px; border-radius: 4px; font-weight: bold; cursor: pointer; width: 100%; }
-  .cart-box { background: white; border: 2px solid #7e22ce; margin: 15px auto; padding: 12px; max-width: 260px; border-radius: 8px; }
-  .buy-btn { background: #16a34a; margin-top: 8px; }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TrendVibe Store</title>
+  <style>
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { margin: 0; background: #f4f6f8; color: #333; padding-bottom: 80px; }
+    header { background: #6200ea; color: white; padding: 15px; text-align: center; }
+    .controls { padding: 12px; display: flex; flex-direction: column; gap: 10px; max-width: 600px; margin: auto; }
+    .search-box { width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ccc; font-size: 15px; }
+    .filters { display: flex; gap: 8px; justify-content: center; }
+    .filter-btn { border: 1px solid #6200ea; background: white; color: #6200ea; padding: 6px 14px; border-radius: 20px; font-weight: bold; cursor: pointer; }
+    .filter-btn.active { background: #6200ea; color: white; }
+    .grid { display: flex; flex-direction: column; gap: 15px; padding: 12px; max-width: 600px; margin: auto; }
+    .card { background: white; border-radius: 12px; padding: 12px; display: flex; gap: 15px; align-items: center; box-shadow: 0 4px 8px rgba(0,0,0,0.05); }
+    .card img { width: 90px; height: 90px; object-fit: cover; border-radius: 8px; }
+    .card-info { flex: 1; }
+    .card-info h4 { margin: 0 0 5px 0; font-size: 16px; }
+    .price { font-weight: bold; color: #6200ea; margin: 0 0 8px 0; }
+    .btn-add { background: #6200ea; color: white; border: none; padding: 7px 12px; border-radius: 6px; font-weight: bold; cursor: pointer; }
+    .cart-bar { position: fixed; bottom: 0; left: 0; right: 0; background: white; border-top: 2px solid #eee; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 -3px 10px rgba(0,0,0,0.1); }
+    .cart-actions { display: flex; gap: 8px; }
+    .btn-clear { background: #e0e0e0; border: none; padding: 8px 12px; border-radius: 6px; font-weight: bold; cursor: pointer; }
+    .btn-buy { background: #00c853; color: white; border: none; padding: 8px 16px; border-radius: 6px; font-weight: bold; cursor: pointer; }
+  </style>
 </head>
 <body>
  
   <header>
-    <h3 style="margin:0;">TrendVibe Fashion</h3>
+    <h2 style="margin:0;">TrendVibe Store</h2>
   </header>
  
-  <div class="card">
-    <img src="https://images.unsplash.com/photo-1576995853123-5a10305d93c0?w=300" alt="Denim Jacket">
-    <h4>Denim Jacket</h4>
-    <p>Price: &#8377;1500</p>
-    <button onclick="add(1500)">Add to Bag</button>
+  <div class="controls">
+    <input type="text" id="searchInput" class="search-box" placeholder="Search products..." onkeyup="filterProducts()">
+    <div class="filters">
+      <button class="filter-btn active" onclick="setCategory('all', this)">All</button>
+      <button class="filter-btn" onclick="setCategory('fashion', this)">Fashion</button>
+      <button class="filter-btn" onclick="setCategory('gadgets', this)">Gadgets</button>
+    </div>
   </div>
  
-  <div class="card">
-    <img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?w=300" alt="White Sneakers">
-    <h4>White Sneakers</h4>
-    <p>Price: &#8377;2000</p>
-    <button onclick="add(2000)">Add to Bag</button>
+  <div class="grid" id="productGrid">
+    <div class="card" data-category="fashion" data-name="Denim Jacket">
+      <img src="https://images.unsplash.com/photo-1576995853123-5a10305d93c0?w=300" alt="Denim Jacket">
+      <div class="card-info">
+        <h4>Denim Jacket</h4>
+        <p class="price">&#8377;1,500</p>
+        <button class="btn-add" onclick="addToCart('Denim Jacket', 1500)">Add to Bag</button>
+      </div>
+    </div>
+ 
+    <div class="card" data-category="fashion" data-name="Classic Sneakers">
+      <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=300" alt="Classic Sneakers">
+      <div class="card-info">
+        <h4>Classic Sneakers</h4>
+        <p class="price">&#8377;2,200</p>
+        <button class="btn-add" onclick="addToCart('Classic Sneakers', 2200)">Add to Bag</button>
+      </div>
+    </div>
+ 
+    <div class="card" data-category="gadgets" data-name="Wireless Headphones">
+      <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=300" alt="Wireless Headphones">
+      <div class="card-info">
+        <h4>Wireless Headphones</h4>
+        <p class="price">&#8377;1,800</p>
+        <button class="btn-add" onclick="addToCart('Wireless Headphones', 1800)">Add to Bag</button>
+      </div>
+    </div>
+ 
+    <div class="card" data-category="gadgets" data-name="Smart Watch">
+      <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=300" alt="Smart Watch">
+      <div class="card-info">
+        <h4>Smart Watch</h4>
+        <p class="price">&#8377;2,500</p>
+        <button class="btn-add" onclick="addToCart('Smart Watch', 2500)">Add to Bag</button>
+      </div>
+    </div>
   </div>
  
-  <div class="card">
-    <img src="https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=300" alt="Leather Watch">
-    <h4>Leather Watch</h4>
-    <p>Price: &#8377;1000</p>
-    <button onclick="add(1000)">Add to Bag</button>
+  <div class="cart-bar">
+    <div>
+      <span id="itemCount" style="font-weight:bold;">0 Items</span> | 
+      <span style="font-weight:bold; color:#6200ea;">Total: &#8377;<span id="totalPrice">0</span></span>
+    </div>
+    <div class="cart-actions">
+      <button class="btn-clear" onclick="clearCart()">Clear</button>
+      <button class="btn-buy" onclick="checkout()">Buy Now</button>
+    </div>
   </div>
  
-  <div class="cart-box">
-    <h4 style="margin:0 0 8px;">Shopping Bag</h4>
-    <p style="margin:4px 0;">Items: <b id="count">0</b></p>
-    <p style="margin:4px 0;">Total: &#8377;<b id="total">0</b></p>
-    <button class="buy-btn" onclick="buy()">Buy Now</button>
-  </div>
+  <script>
+    let cartTotal = 0;
+    let itemCount = 0;
+    let currentCategory = 'all';
  
-<script>
-  var total = 0;
-  var count = 0;
- 
-  function add(price) {
-    count = count + 1;
-    total = total + price;
-    document.getElementById("count").innerText = count;
-    document.getElementById("total").innerText = total;
-  }
- 
-  function buy() {
-    if (total === 0) {
-      alert("Bag is empty! Please add items to your cart first.");
-    } else {
-      alert("Order Placed Successfully!\nTotal Items: " + count + "\nTotal Amount: Rs. " + total);
+    function addToCart(name, price) {
+      cartTotal += price;
+      itemCount += 1;
+      updateCartDisplay();
+      alert(name + " added to your bag!");
     }
-  }
-</script>
  
+    function clearCart() {
+      cartTotal = 0;
+      itemCount = 0;
+      updateCartDisplay();
+    }
+ 
+    function updateCartDisplay() {
+      document.getElementById('totalPrice').innerText = cartTotal;
+      document.getElementById('itemCount').innerText = itemCount + " Items";
+    }
+ 
+    function checkout() {
+      if (itemCount === 0) {
+        alert("Your bag is empty! Add products first.");
+      } else {
+        alert("Order placed successfully! Total Amount: Rs." + cartTotal);
+        clearCart();
+      }
+    }
+ 
+    function setCategory(category, element) {
+      currentCategory = category;
+      document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+      element.classList.add('active');
+      filterProducts();
+    }
+ 
+    function filterProducts() {
+      let query = document.getElementById('searchInput').value.toLowerCase();
+      let cards = document.querySelectorAll('.card');
+ 
+      cards.forEach(card => {
+        let name = card.getAttribute('data-name').toLowerCase();
+        let cat = card.getAttribute('data-category');
+        let matchesCategory = (currentCategory === 'all' || cat === currentCategory);
+        let matchesSearch = name.includes(query);
+ 
+        if (matchesCategory && matchesSearch) {
+          card.style.display = "flex";
+        } else {
+          card.style.display = "none";
+        }
+      });
+    }
+  </script>
 </body>
 </html>
