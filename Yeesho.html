@@ -6,10 +6,10 @@
   <title>Yeesho - Lowest Prices, Best Quality</title>
   <style>
     * { box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
-    body { margin: 0; background: #f9f9f9; color: #333; padding-bottom: 90px; }
+    body { margin: 0; background: #f8f9fa; color: #333; padding-bottom: 90px; }
  
-    /* Meesho Style Pink Header */
-    header { background: #ffffff; border-bottom: 1px solid #e0e0e0; padding: 12px 16px; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 4px rgba(0,0,0,0.04); }
+    /* Top Header */
+    header { background: #ffffff; border-bottom: 1px solid #e0e0e0; padding: 12px 16px; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 5px rgba(0,0,0,0.03); }
     .brand-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
     .logo { font-size: 24px; font-weight: 900; color: #f43397; letter-spacing: -0.5px; }
     .tagline { font-size: 11px; color: #666; font-weight: 500; }
@@ -17,39 +17,55 @@
     .search-box { width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid #ccc; font-size: 14px; outline: none; background: #f4f4f6; }
     .search-box:focus { border-color: #f43397; background: #fff; }
  
+    /* Offer Banner */
+    .offer-banner { background: #fdebf4; color: #f43397; font-size: 12px; font-weight: bold; text-align: center; padding: 8px; border-bottom: 1px dashed #f43397; }
+ 
     /* Category Pill Filters */
-    .filters { display: flex; gap: 8px; padding: 12px 16px 4px; overflow-x: auto; max-width: 600px; margin: auto; }
-    .filter-btn { border: 1px solid #e0e0e0; background: #fff; color: #555; padding: 6px 16px; border-radius: 20px; font-size: 13px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .filters { display: flex; gap: 8px; padding: 10px 14px 4px; overflow-x: auto; max-width: 600px; margin: auto; }
+    .filters::-webkit-scrollbar { display: none; }
+    .filter-btn { border: 1px solid #e0e0e0; background: #fff; color: #555; padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: 600; cursor: pointer; white-space: nowrap; }
     .filter-btn.active { background: #f43397; color: white; border-color: #f43397; }
  
     /* Product Grid (2-Column Meesho layout) */
-    .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 12px; max-width: 600px; margin: auto; }
-    .card { background: white; border-radius: 8px; overflow: hidden; border: 1px solid #eee; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
-    .card img { width: 100%; height: 160px; object-fit: cover; }
-    .card-info { padding: 10px; display: flex; flex-direction: column; gap: 4px; }
-    .card-info h4 { margin: 0; font-size: 14px; color: #444; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 10px; max-width: 600px; margin: auto; }
+    .card { background: white; border-radius: 8px; overflow: hidden; border: 1px solid #eee; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
+    .card img { width: 100%; height: 155px; object-fit: cover; }
+    .card-info { padding: 8px 10px; display: flex; flex-direction: column; gap: 3px; }
+    .card-info h4 { margin: 0; font-size: 13px; color: #444; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
  
-    .price-row { display: flex; align-items: baseline; gap: 6px; margin-top: 2px; }
-    .price { font-size: 16px; font-weight: 800; color: #333; margin: 0; }
-    .original-price { font-size: 12px; color: #888; text-decoration: line-through; }
+    .price-row { display: flex; align-items: baseline; gap: 5px; margin-top: 2px; }
+    .price { font-size: 15px; font-weight: 800; color: #333; margin: 0; }
+    .original-price { font-size: 11px; color: #888; text-decoration: line-through; }
     .discount { font-size: 11px; color: #038d63; font-weight: 700; }
  
-    .badge-row { display: flex; gap: 6px; align-items: center; margin: 4px 0; }
-    .rating-badge { background: #23bb75; color: white; font-size: 11px; font-weight: bold; padding: 2px 6px; border-radius: 12px; display: inline-flex; align-items: center; gap: 2px; }
-    .delivery-tag { font-size: 11px; color: #666; background: #f0f0f0; padding: 2px 6px; border-radius: 4px; }
+    .badge-row { display: flex; gap: 5px; align-items: center; margin: 3px 0; }
+    .rating-badge { background: #23bb75; color: white; font-size: 10px; font-weight: bold; padding: 2px 5px; border-radius: 10px; }
+    .delivery-tag { font-size: 10px; color: #666; background: #f0f0f0; padding: 2px 5px; border-radius: 4px; }
  
-    .btn-add { background: #fff; color: #f43397; border: 1px solid #f43397; padding: 8px; border-radius: 6px; font-weight: 700; font-size: 13px; cursor: pointer; width: 100%; margin-top: 6px; }
+    .btn-add { background: #fff; color: #f43397; border: 1px solid #f43397; padding: 7px; border-radius: 6px; font-weight: 700; font-size: 12px; cursor: pointer; width: 100%; margin-top: 4px; }
     .btn-add:active { background: #fdebf4; }
  
     /* Sticky Bottom Cart Bar */
-    .cart-bar { position: fixed; bottom: 0; left: 0; right: 0; background: white; border-top: 1px solid #e0e0e0; padding: 10px 16px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 -2px 8px rgba(0,0,0,0.08); max-width: 600px; margin: auto; }
-    .cart-details { display: flex; flex-direction: column; }
-    .cart-details .count { font-size: 12px; color: #666; font-weight: 500; }
+    .cart-bar { position: fixed; bottom: 0; left: 0; right: 0; background: white; border-top: 1px solid #e0e0e0; padding: 10px 16px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 -2px 8px rgba(0,0,0,0.08); max-width: 600px; margin: auto; z-index: 100; }
+    .cart-details { display: flex; flex-direction: column; cursor: pointer; }
+    .cart-details .count { font-size: 11px; color: #666; font-weight: 500; }
     .cart-details .total { font-size: 16px; font-weight: 800; color: #f43397; }
  
     .cart-actions { display: flex; gap: 8px; }
-    .btn-clear { background: #f0f0f0; color: #555; border: none; padding: 8px 12px; border-radius: 6px; font-weight: 600; font-size: 13px; cursor: pointer; }
-    .btn-buy { background: #f43397; color: white; border: none; padding: 8px 20px; border-radius: 6px; font-weight: 700; font-size: 14px; cursor: pointer; }
+    .btn-view-cart { background: #fdebf4; color: #f43397; border: 1px solid #f43397; padding: 8px 12px; border-radius: 6px; font-weight: 600; font-size: 13px; cursor: pointer; }
+    .btn-buy { background: #f43397; color: white; border: none; padding: 8px 18px; border-radius: 6px; font-weight: 700; font-size: 13px; cursor: pointer; }
+ 
+    /* Modal / Bottom Sheet Cart Drawer */
+    .cart-modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 200; justify-content: center; align-items: flex-end; }
+    .cart-content { background: white; width: 100%; max-width: 600px; max-height: 80vh; border-radius: 16px 16px 0 0; padding: 16px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; }
+    .cart-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding-bottom: 8px; }
+    .cart-item { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #f0f0f0; padding: 8px 0; }
+    .btn-remove-item { background: #fee2e2; color: #dc2626; border: none; border-radius: 4px; padding: 4px 8px; font-size: 11px; font-weight: bold; cursor: pointer; }
+ 
+    /* Coupon Section */
+    .coupon-box { display: flex; gap: 8px; background: #fafafa; padding: 10px; border-radius: 8px; border: 1px dashed #ccc; }
+    .coupon-input { flex: 1; padding: 6px 10px; border: 1px solid #ccc; border-radius: 4px; text-transform: uppercase; font-size: 12px; }
+    .btn-apply { background: #333; color: white; border: none; padding: 6px 12px; border-radius: 4px; font-size: 12px; font-weight: bold; cursor: pointer; }
   </style>
 </head>
 <body>
@@ -59,132 +75,279 @@
       <div class="logo">yeesho</div>
       <div class="tagline">Lowest Prices Guaranteed</div>
     </div>
-    <input type="text" id="searchInput" class="search-box" placeholder="Try Saree, Kurti, Watch or Shoes..." onkeyup="filterProducts()">
+    <input type="text" id="searchInput" class="search-box" placeholder="Try Kurti, Shoes, Watch, Earbuds..." onkeyup="filterProducts()">
   </header>
+ 
+  <div class="offer-banner">
+    🎁 Use Coupon <span style="text-decoration:underline;">YEESHO50</span> for ₹50 OFF or <span style="text-decoration:underline;">SPECIAL20</span> for 20% OFF!
+  </div>
  
   <div class="filters">
     <button class="filter-btn active" onclick="setCategory('all', this)">All</button>
-    <button class="filter-btn" onclick="setCategory('women', this)">Women Ethnic</button>
-    <button class="filter-btn" onclick="setCategory('men', this)">Men Fashion</button>
+    <button class="filter-btn" onclick="setCategory('women', this)">Women</button>
+    <button class="filter-btn" onclick="setCategory('men', this)">Men</button>
     <button class="filter-btn" onclick="setCategory('electronics', this)">Electronics</button>
+    <button class="filter-btn" onclick="setCategory('home', this)">Home</button>
   </div>
  
+  <!-- 10 Products Grid -->
   <div class="grid" id="productGrid">
  
-    <!-- Item 1 -->
+    <!-- 1 -->
     <div class="card" data-category="women" data-name="Designer Silk Saree">
       <img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=300" alt="Silk Saree">
       <div class="card-info">
         <h4>Designer Silk Saree</h4>
-        <div class="price-row">
-          <span class="price">&#8377;499</span>
-          <span class="original-price">&#8377;1,299</span>
-          <span class="discount">61% off</span>
-        </div>
-        <div class="badge-row">
-          <span class="rating-badge">4.2 &#9733;</span>
-          <span class="delivery-tag">Free Delivery</span>
-        </div>
+        <div class="price-row"><span class="price">&#8377;499</span><span class="original-price">&#8377;1,299</span><span class="discount">61% off</span></div>
+        <div class="badge-row"><span class="rating-badge">4.2 &#9733;</span><span class="delivery-tag">Free Delivery</span></div>
         <button class="btn-add" onclick="addToCart('Designer Silk Saree', 499)">Add to Cart</button>
       </div>
     </div>
  
-    <!-- Item 2 -->
+    <!-- 2 -->
     <div class="card" data-category="men" data-name="Casual Denim Shirt">
       <img src="https://images.unsplash.com/photo-1576995853123-5a10305d93c0?w=300" alt="Denim Shirt">
       <div class="card-info">
         <h4>Casual Denim Shirt</h4>
-        <div class="price-row">
-          <span class="price">&#8377;349</span>
-          <span class="original-price">&#8377;899</span>
-          <span class="discount">60% off</span>
-        </div>
-        <div class="badge-row">
-          <span class="rating-badge">4.0 &#9733;</span>
-          <span class="delivery-tag">Free Delivery</span>
-        </div>
+        <div class="price-row"><span class="price">&#8377;349</span><span class="original-price">&#8377;899</span><span class="discount">60% off</span></div>
+        <div class="badge-row"><span class="rating-badge">4.0 &#9733;</span><span class="delivery-tag">Free Delivery</span></div>
         <button class="btn-add" onclick="addToCart('Casual Denim Shirt', 349)">Add to Cart</button>
       </div>
     </div>
  
-    <!-- Item 3 -->
+    <!-- 3 -->
     <div class="card" data-category="electronics" data-name="Wireless Earbuds TWS">
       <img src="https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=300" alt="Earbuds">
       <div class="card-info">
         <h4>Wireless Earbuds TWS</h4>
-        <div class="price-row">
-          <span class="price">&#8377;299</span>
-          <span class="original-price">&#8377;999</span>
-          <span class="discount">70% off</span>
-        </div>
-        <div class="badge-row">
-          <span class="rating-badge">3.9 &#9733;</span>
-          <span class="delivery-tag">Free Delivery</span>
-        </div>
+        <div class="price-row"><span class="price">&#8377;299</span><span class="original-price">&#8377;999</span><span class="discount">70% off</span></div>
+        <div class="badge-row"><span class="rating-badge">3.9 &#9733;</span><span class="delivery-tag">Free Delivery</span></div>
         <button class="btn-add" onclick="addToCart('Wireless Earbuds TWS', 299)">Add to Cart</button>
       </div>
     </div>
  
-    <!-- Item 4 -->
+    <!-- 4 -->
     <div class="card" data-category="men" data-name="Trendy Sneakers">
       <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=300" alt="Sneakers">
       <div class="card-info">
         <h4>Trendy Casual Sneakers</h4>
-        <div class="price-row">
-          <span class="price">&#8377;420</span>
-          <span class="original-price">&#8377;999</span>
-          <span class="discount">58% off</span>
-        </div>
-        <div class="badge-row">
-          <span class="rating-badge">4.3 &#9733;</span>
-          <span class="delivery-tag">Free Delivery</span>
-        </div>
+        <div class="price-row"><span class="price">&#8377;420</span><span class="original-price">&#8377;999</span><span class="discount">58% off</span></div>
+        <div class="badge-row"><span class="rating-badge">4.3 &#9733;</span><span class="delivery-tag">Free Delivery</span></div>
         <button class="btn-add" onclick="addToCart('Trendy Casual Sneakers', 420)">Add to Cart</button>
+      </div>
+    </div>
+ 
+    <!-- 5 -->
+    <div class="card" data-category="electronics" data-name="Smart Fitness Band">
+      <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=300" alt="Smart Watch">
+      <div class="card-info">
+        <h4>Smart Fitness Watch</h4>
+        <div class="price-row"><span class="price">&#8377;599</span><span class="original-price">&#8377;1,999</span><span class="discount">70% off</span></div>
+        <div class="badge-row"><span class="rating-badge">4.4 &#9733;</span><span class="delivery-tag">Free Delivery</span></div>
+        <button class="btn-add" onclick="addToCart('Smart Fitness Watch', 599)">Add to Cart</button>
+      </div>
+    </div>
+ 
+    <!-- 6 -->
+    <div class="card" data-category="women" data-name="Anarkali Printed Kurti">
+      <img src="https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=300" alt="Kurti">
+      <div class="card-info">
+        <h4>Anarkali Printed Kurti</h4>
+        <div class="price-row"><span class="price">&#8377;279</span><span class="original-price">&#8377;699</span><span class="discount">60% off</span></div>
+        <div class="badge-row"><span class="rating-badge">4.1 &#9733;</span><span class="delivery-tag">Free Delivery</span></div>
+        <button class="btn-add" onclick="addToCart('Anarkali Printed Kurti', 279)">Add to Cart</button>
+      </div>
+    </div>
+ 
+    <!-- 7 -->
+    <div class="card" data-category="home" data-name="LED Moon Night Lamp">
+      <img src="https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=300" alt="Lamp">
+      <div class="card-info">
+        <h4>3D Moon Night Lamp</h4>
+        <div class="price-row"><span class="price">&#8377;199</span><span class="original-price">&#8377;499</span><span class="discount">60% off</span></div>
+        <div class="badge-row"><span class="rating-badge">4.5 &#9733;</span><span class="delivery-tag">Free Delivery</span></div>
+        <button class="btn-add" onclick="addToCart('3D Moon Night Lamp', 199)">Add to Cart</button>
+      </div>
+    </div>
+ 
+    <!-- 8 -->
+    <div class="card" data-category="men" data-name="Black Leather Wallet">
+      <img src="https://images.unsplash.com/photo-1627123424574-724758594e93?w=300" alt="Wallet">
+      <div class="card-info">
+        <h4>Vintage Leather Wallet</h4>
+        <div class="price-row"><span class="price">&#8377;149</span><span class="original-price">&#8377;399</span><span class="discount">62% off</span></div>
+        <div class="badge-row"><span class="rating-badge">4.0 &#9733;</span><span class="delivery-tag">Free Delivery</span></div>
+        <button class="btn-add" onclick="addToCart('Vintage Leather Wallet', 149)">Add to Cart</button>
+      </div>
+    </div>
+ 
+    <!-- 9 -->
+    <div class="card" data-category="electronics" data-name="Portable Bluetooth Speaker">
+      <img src="https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=300" alt="Speaker">
+      <div class="card-info">
+        <h4>Mini Bluetooth Speaker</h4>
+        <div class="price-row"><span class="price">&#8377;380</span><span class="original-price">&#8377;899</span><span class="discount">57% off</span></div>
+        <div class="badge-row"><span class="rating-badge">4.2 &#9733;</span><span class="delivery-tag">Free Delivery</span></div>
+        <button class="btn-add" onclick="addToCart('Mini Bluetooth Speaker', 380)">Add to Cart</button>
+      </div>
+    </div>
+ 
+    <!-- 10 -->
+    <div class="card" data-category="home" data-name="Stainless Steel Water Bottle">
+      <img src="https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=300" alt="Bottle">
+      <div class="card-info">
+        <h4>Insulated Steel Bottle</h4>
+        <div class="price-row"><span class="price">&#8377;250</span><span class="original-price">&#8377;599</span><span class="discount">58% off</span></div>
+        <div class="badge-row"><span class="rating-badge">4.3 &#9733;</span><span class="delivery-tag">Free Delivery</span></div>
+        <button class="btn-add" onclick="addToCart('Insulated Steel Bottle', 250)">Add to Cart</button>
       </div>
     </div>
  
   </div>
  
+  <!-- Bottom Cart Sticky Bar -->
   <div class="cart-bar">
-    <div class="cart-details">
+    <div class="cart-details" onclick="openCartModal()">
       <span class="count" id="itemCount">0 Items selected</span>
       <span class="total">&#8377;<span id="totalPrice">0</span></span>
     </div>
     <div class="cart-actions">
-      <button class="btn-clear" onclick="clearCart()">Clear</button>
-      <button class="btn-buy" onclick="checkout()">Continue</button>
+      <button class="btn-view-cart" onclick="openCartModal()">View Cart</button>
+      <button class="btn-buy" onclick="checkout()">Order Now</button>
+    </div>
+  </div>
+ 
+  <!-- Cart Modal / Slide-up Drawer -->
+  <div class="cart-modal" id="cartModal">
+    <div class="cart-content">
+      <div class="cart-header">
+        <h3 style="margin:0; font-size:16px;">Yeesho Cart (<span id="modalItemCount">0</span>)</h3>
+        <button onclick="closeCartModal()" style="border:none; background:none; font-size:18px; font-weight:bold; cursor:pointer;">✕</button>
+      </div>
+ 
+      <div id="cartItemsList" style="max-height: 220px; overflow-y:auto;">
+        <!-- Cart Items Injected by JS -->
+      </div>
+ 
+      <!-- Coupon Apply -->
+      <div class="coupon-box">
+        <input type="text" id="couponCode" class="coupon-input" placeholder="Enter Coupon (e.g. YEESHO50)">
+        <button class="btn-apply" onclick="applyCoupon()">Apply</button>
+      </div>
+      <div id="couponMsg" style="font-size:11px; font-weight:bold; color:#038d63;"></div>
+ 
+      <div style="display:flex; justify-content:space-between; font-weight:bold; border-top:1px solid #eee; padding-top:8px;">
+        <span>Final Payable Amount:</span>
+        <span style="color:#f43397;">&#8377;<span id="modalFinalPrice">0</span></span>
+      </div>
+ 
+      <div style="display:flex; gap:8px;">
+        <button onclick="clearAllCart()" style="flex:1; background:#f0f0f0; border:none; padding:10px; border-radius:6px; font-weight:bold; cursor:pointer;">Clear All</button>
+        <button onclick="checkout()" style="flex:2; background:#f43397; color:white; border:none; padding:10px; border-radius:6px; font-weight:bold; cursor:pointer;">Confirm Order (COD)</button>
+      </div>
     </div>
   </div>
  
   <script>
-    let cartTotal = 0;
-    let itemCount = 0;
+    let cart = [];
+    let discount = 0;
+    let appliedCoupon = "";
     let currentCategory = 'all';
  
     function addToCart(name, price) {
-      cartTotal += price;
-      itemCount += 1;
+      cart.push({ name: name, price: price });
       updateCartDisplay();
-      alert(name + " added to your Yeesho cart!");
+      alert("Added to Yeesho Cart: " + name);
     }
  
-    function clearCart() {
-      cartTotal = 0;
-      itemCount = 0;
+    function removeCartItem(index) {
+      cart.splice(index, 1);
       updateCartDisplay();
+      renderCartItems();
+    }
+ 
+    function clearAllCart() {
+      cart = [];
+      discount = 0;
+      appliedCoupon = "";
+      document.getElementById('couponMsg').innerText = "";
+      updateCartDisplay();
+      renderCartItems();
+      closeCartModal();
     }
  
     function updateCartDisplay() {
-      document.getElementById('totalPrice').innerText = cartTotal;
-      document.getElementById('itemCount').innerText = itemCount + " Items selected";
+      let total = cart.reduce((sum, item) => sum + item.price, 0);
+      let finalTotal = Math.max(0, total - discount);
+ 
+      document.getElementById('totalPrice').innerText = finalTotal;
+      document.getElementById('modalFinalPrice').innerText = finalTotal;
+      document.getElementById('itemCount').innerText = cart.length + " Items selected";
+      document.getElementById('modalItemCount').innerText = cart.length;
+    }
+ 
+    function openCartModal() {
+      renderCartItems();
+      document.getElementById('cartModal').style.display = 'flex';
+    }
+ 
+    function closeCartModal() {
+      document.getElementById('cartModal').style.display = 'none';
+    }
+ 
+    function renderCartItems() {
+      let list = document.getElementById('cartItemsList');
+      if (cart.length === 0) {
+        list.innerHTML = "<p style='text-align:center; color:#888; font-size:13px; margin:20px 0;'>Your bag is empty! Add products first.</p>";
+        return;
+      }
+      let html = "";
+      cart.forEach((item, idx) => {
+        html += `
+          <div class="cart-item">
+            <div>
+              <div style="font-size:13px; font-weight:600;">${item.name}</div>
+              <div style="font-size:12px; color:#f43397; font-weight:bold;">₹${item.price}</div>
+            </div>
+            <button class="btn-remove-item" onclick="removeCartItem(${idx})">Cancel ✕</button>
+          </div>
+        `;
+      });
+      list.innerHTML = html;
+    }
+ 
+    function applyCoupon() {
+      let code = document.getElementById('couponCode').value.trim().toUpperCase();
+      let total = cart.reduce((sum, item) => sum + item.price, 0);
+ 
+      if (total === 0) {
+        alert("Add items to cart before applying coupon!");
+        return;
+      }
+ 
+      if (code === "YEESHO50") {
+        discount = 50;
+        appliedCoupon = code;
+        document.getElementById('couponMsg').innerText = "✓ Coupon YEESHO50 Applied! ₹50 Discount";
+      } else if (code === "SPECIAL20") {
+        discount = Math.round(total * 0.20);
+        appliedCoupon = code;
+        document.getElementById('couponMsg').innerText = "✓ Coupon SPECIAL20 Applied! 20% Discount (₹" + discount + ")";
+      } else {
+        alert("Invalid Coupon Code! Try YEESHO50 or SPECIAL20");
+        return;
+      }
+      updateCartDisplay();
     }
  
     function checkout() {
-      if (itemCount === 0) {
+      if (cart.length === 0) {
         alert("Your cart is empty! Select products to order.");
       } else {
-        alert("🎉 Order Confirmed on Yeesho!\nTotal Price: Rs." + cartTotal + "\nPayment Mode: Cash on Delivery (COD)");
-        clearCart();
+        let total = cart.reduce((sum, item) => sum + item.price, 0);
+        let finalTotal = Math.max(0, total - discount);
+        alert("🎉 Order Confirmed on Yeesho!\n\nTotal Items: " + cart.length + "\nFinal Price: Rs." + finalTotal + "\nPayment: Cash on Delivery (COD)\nDelivery: Free");
+        clearAllCart();
       }
     }
  
