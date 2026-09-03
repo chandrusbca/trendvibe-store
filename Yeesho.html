@@ -3,176 +3,272 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Yeesho Online Store</title>
+  <title>Yeesho - Lowest Prices, Best Quality</title>
   <style>
-    * { box-sizing: border-box; font-family: Arial, sans-serif; }
-    body { margin: 0; background: #fdf2f8; padding-bottom: 90px; }
+    * { box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
+    body { margin: 0; background: #f8f9fa; color: #333; padding-bottom: 90px; }
  
-    header { background: #db2777; color: white; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; }
-    .header-user { display: flex; align-items: center; gap: 8px; }
-    .btn-auth-header { background: white; color: #db2777; border: none; padding: 6px 12px; border-radius: 15px; font-weight: bold; font-size: 12px; cursor: pointer; }
+    /* Top Header */
+    header { background: #ffffff; border-bottom: 1px solid #e0e0e0; padding: 12px 16px; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 5px rgba(0,0,0,0.03); }
+    .brand-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+    .logo-area { display: flex; flex-direction: column; }
+    .logo { font-size: 24px; font-weight: 900; color: #f43397; letter-spacing: -0.5px; }
+    .tagline { font-size: 11px; color: #666; font-weight: 500; }
  
-    .search-box { width: 90%; max-width: 500px; padding: 10px; margin: 12px auto; display: block; border-radius: 6px; border: 1px solid #ccc; font-size: 13px; }
+    .btn-auth-header { background: #f43397; color: white; border: none; padding: 6px 14px; border-radius: 16px; font-weight: bold; font-size: 12px; cursor: pointer; }
+    .user-pill { font-size: 13px; font-weight: bold; color: #333; display: flex; align-items: center; gap: 8px; }
+    .btn-logout { background: none; border: none; color: #f43397; font-size: 11px; font-weight: bold; cursor: pointer; text-decoration: underline; }
  
-    .filters { text-align: center; margin-bottom: 15px; }
-    .filter-btn { background: white; border: 1px solid #db2777; color: #db2777; padding: 6px 12px; margin: 3px; border-radius: 15px; cursor: pointer; font-weight: bold; font-size: 12px; }
-    .filter-btn.active { background: #db2777; color: white; }
+    .search-box { width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid #ccc; font-size: 14px; outline: none; background: #f4f4f6; }
+    .search-box:focus { border-color: #f43397; background: #fff; }
  
+    /* Offer Banner */
+    .offer-banner { background: #fdebf4; color: #f43397; font-size: 12px; font-weight: bold; text-align: center; padding: 8px; border-bottom: 1px dashed #f43397; }
+ 
+    /* Category Pill Filters */
+    .filters { display: flex; gap: 8px; padding: 10px 14px 4px; overflow-x: auto; max-width: 600px; margin: auto; }
+    .filters::-webkit-scrollbar { display: none; }
+    .filter-btn { border: 1px solid #e0e0e0; background: #fff; color: #555; padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .filter-btn.active { background: #f43397; color: white; border-color: #f43397; }
+ 
+    /* Product Grid */
     .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 10px; max-width: 600px; margin: auto; }
-    .card { background: white; border-radius: 8px; border: 1px solid #eee; padding: 10px; display: flex; flex-direction: column; justify-content: space-between; }
-    .card img { width: 100%; height: 130px; object-fit: cover; border-radius: 6px; }
-    .card h4 { margin: 8px 0 4px; font-size: 13px; }
-    .price { color: #db2777; font-weight: bold; margin: 4px 0; font-size: 14px; }
-    .btn-add { background: #db2777; color: white; border: none; padding: 7px; border-radius: 5px; cursor: pointer; font-weight: bold; width: 100%; font-size: 12px; }
+    .card { background: white; border-radius: 8px; overflow: hidden; border: 1px solid #eee; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
+    .card img { width: 100%; height: 155px; object-fit: cover; }
+    .card-info { padding: 8px 10px; display: flex; flex-direction: column; gap: 3px; }
+    .card-info h4 { margin: 0; font-size: 13px; color: #444; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
  
-    /* Cart Bottom Bar */
-    .cart-bar { position: fixed; bottom: 0; left: 0; right: 0; background: white; border-top: 2px solid #eee; padding: 10px 15px; display: flex; justify-content: space-between; align-items: center; z-index: 50; }
-    .btn-cart { background: #db2777; color: white; border: none; padding: 8px 14px; border-radius: 6px; font-weight: bold; cursor: pointer; }
+    .price-row { display: flex; align-items: baseline; gap: 5px; margin-top: 2px; }
+    .price { font-size: 15px; font-weight: 800; color: #333; margin: 0; }
+    .original-price { font-size: 11px; color: #888; text-decoration: line-through; }
+    .discount { font-size: 11px; color: #038d63; font-weight: 700; }
  
-    /* Popup Modals */
-    .popup-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); justify-content: center; align-items: center; z-index: 100; }
-    .popup-box { background: white; width: 90%; max-width: 380px; padding: 18px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
-    .cart-item { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding: 6px 0; font-size: 13px; }
-    .btn-cancel { background: #ef4444; color: white; border: none; padding: 3px 7px; border-radius: 4px; cursor: pointer; font-size: 11px; }
+    .badge-row { display: flex; gap: 5px; align-items: center; margin: 3px 0; }
+    .rating-badge { background: #23bb75; color: white; font-size: 10px; font-weight: bold; padding: 2px 5px; border-radius: 10px; }
+    .delivery-tag { font-size: 10px; color: #666; background: #f0f0f0; padding: 2px 5px; border-radius: 4px; }
  
-    /* Auth Form Tabs & Inputs */
-    .auth-tabs { display: flex; border-bottom: 2px solid #eee; margin-bottom: 15px; }
+    .btn-add { background: #fff; color: #f43397; border: 1px solid #f43397; padding: 7px; border-radius: 6px; font-weight: 700; font-size: 12px; cursor: pointer; width: 100%; margin-top: 4px; }
+    .btn-add:active { background: #fdebf4; }
+ 
+    /* Sticky Bottom Cart Bar */
+    .cart-bar { position: fixed; bottom: 0; left: 0; right: 0; background: white; border-top: 1px solid #e0e0e0; padding: 10px 16px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 -2px 8px rgba(0,0,0,0.08); max-width: 600px; margin: auto; z-index: 100; }
+    .cart-details { display: flex; flex-direction: column; cursor: pointer; }
+    .cart-details .count { font-size: 11px; color: #666; font-weight: 500; }
+    .cart-details .total { font-size: 16px; font-weight: 800; color: #f43397; }
+ 
+    .cart-actions { display: flex; gap: 8px; }
+    .btn-view-cart { background: #fdebf4; color: #f43397; border: 1px solid #f43397; padding: 8px 12px; border-radius: 6px; font-weight: 600; font-size: 13px; cursor: pointer; }
+    .btn-buy { background: #f43397; color: white; border: none; padding: 8px 18px; border-radius: 6px; font-weight: 700; font-size: 13px; cursor: pointer; }
+ 
+    /* Modals (Cart & Auth) */
+    .modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 200; justify-content: center; align-items: flex-end; }
+    .modal-content { background: white; width: 100%; max-width: 600px; max-height: 80vh; border-radius: 16px 16px 0 0; padding: 16px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; }
+    .modal-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding-bottom: 8px; }
+ 
+    .cart-item { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #f0f0f0; padding: 8px 0; }
+    .btn-remove-item { background: #fee2e2; color: #dc2626; border: none; border-radius: 4px; padding: 4px 8px; font-size: 11px; font-weight: bold; cursor: pointer; }
+ 
+    .coupon-box { display: flex; gap: 8px; background: #fafafa; padding: 10px; border-radius: 8px; border: 1px dashed #ccc; }
+    .coupon-input { flex: 1; padding: 6px 10px; border: 1px solid #ccc; border-radius: 4px; text-transform: uppercase; font-size: 12px; }
+    .btn-apply { background: #333; color: white; border: none; padding: 6px 12px; border-radius: 4px; font-size: 12px; font-weight: bold; cursor: pointer; }
+ 
+    /* Auth Drawer Elements */
+    .auth-tabs { display: flex; border-bottom: 2px solid #eee; margin-bottom: 10px; }
     .auth-tab { flex: 1; text-align: center; padding: 8px; cursor: pointer; font-weight: bold; color: #666; font-size: 14px; }
-    .auth-tab.active { color: #db2777; border-bottom: 2px solid #db2777; }
-    .auth-input { width: 100%; padding: 9px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 13px; }
-    .btn-submit-auth { width: 100%; background: #db2777; color: white; border: none; padding: 10px; border-radius: 5px; font-weight: bold; cursor: pointer; font-size: 14px; }
+    .auth-tab.active { color: #f43397; border-bottom: 2px solid #f43397; }
+    .auth-input { width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 6px; font-size: 13px; }
+    .btn-submit-auth { width: 100%; background: #f43397; color: white; border: none; padding: 11px; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 14px; }
   </style>
 </head>
 <body>
  
   <header>
-    <div>
-      <h3 style="margin:0; font-size:18px;">Yeesho Shopping</h3>
-      <span style="font-size:11px; opacity:0.9;">Lowest Prices Guaranteed</span>
+    <div class="brand-row">
+      <div class="logo-area">
+        <div class="logo">yeesho</div>
+        <div class="tagline">Lowest Prices Guaranteed</div>
+      </div>
+      <div id="authHeaderArea">
+        <button class="btn-auth-header" onclick="openAuthModal('login')">Login / Register</button>
+      </div>
     </div>
-    <div class="header-user" id="userHeaderSection">
-      <button class="btn-auth-header" onclick="openAuthModal('login')">Login / Register</button>
-    </div>
+    <input type="text" id="searchInput" class="search-box" placeholder="Try Kurti, Shoes, Watch, Earbuds..." onkeyup="filterProducts()">
   </header>
  
-  <input type="text" id="searchInput" class="search-box" placeholder="Search products..." onkeyup="filterProducts()">
+  <!-- Offer Banner -->
+  <div class="offer-banner">
+    🎁 Use Coupon <span style="text-decoration:underline;">YEESHO50</span> for ₹50 OFF or <span style="text-decoration:underline;">SPECIAL20</span> for 20% OFF!
+  </div>
  
+  <!-- Filters -->
   <div class="filters">
     <button class="filter-btn active" onclick="setCategory('all', this)">All</button>
-    <button class="filter-btn" onclick="setCategory('fashion', this)">Fashion</button>
+    <button class="filter-btn" onclick="setCategory('women', this)">Women</button>
+    <button class="filter-btn" onclick="setCategory('men', this)">Men</button>
     <button class="filter-btn" onclick="setCategory('electronics', this)">Electronics</button>
     <button class="filter-btn" onclick="setCategory('home', this)">Home</button>
   </div>
  
+  <!-- 10 Products Grid -->
   <div class="grid" id="productGrid">
-    <div class="card" data-category="fashion" data-name="Silk Saree">
-      <img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=300" alt="Saree">
-      <h4>Designer Silk Saree</h4>
-      <p class="price">&#8377;499</p>
-      <button class="btn-add" onclick="addToCart('Silk Saree', 499)">Add to Cart</button>
+    <!-- 1 -->
+    <div class="card" data-category="women" data-name="Designer Silk Saree">
+      <img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=300" alt="Silk Saree">
+      <div class="card-info">
+        <h4>Designer Silk Saree</h4>
+        <div class="price-row"><span class="price">&#8377;499</span><span class="original-price">&#8377;1,299</span><span class="discount">61% off</span></div>
+        <div class="badge-row"><span class="rating-badge">4.2 &#9733;</span><span class="delivery-tag">Free Delivery</span></div>
+        <button class="btn-add" onclick="addToCart('Designer Silk Saree', 499)">Add to Cart</button>
+      </div>
     </div>
  
-    <div class="card" data-category="fashion" data-name="Cotton Kurti">
-      <img src="https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=300" alt="Kurti">
-      <h4>Cotton Printed Kurti</h4>
-      <p class="price">&#8377;280</p>
-      <button class="btn-add" onclick="addToCart('Cotton Kurti', 280)">Add to Cart</button>
+    <!-- 2 -->
+    <div class="card" data-category="men" data-name="Casual Denim Shirt">
+      <img src="https://images.unsplash.com/photo-1576995853123-5a10305d93c0?w=300" alt="Denim Shirt">
+      <div class="card-info">
+        <h4>Casual Denim Shirt</h4>
+        <div class="price-row"><span class="price">&#8377;349</span><span class="original-price">&#8377;899</span><span class="discount">60% off</span></div>
+        <div class="badge-row"><span class="rating-badge">4.0 &#9733;</span><span class="delivery-tag">Free Delivery</span></div>
+        <button class="btn-add" onclick="addToCart('Casual Denim Shirt', 349)">Add to Cart</button>
+      </div>
     </div>
  
-    <div class="card" data-category="fashion" data-name="Men T-Shirt">
-      <img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=300" alt="T-Shirt">
-      <h4>Men Printed T-Shirt</h4>
-      <p class="price">&#8377;199</p>
-      <button class="btn-add" onclick="addToCart('Men T-Shirt', 199)">Add to Cart</button>
-    </div>
- 
-    <div class="card" data-category="fashion" data-name="Sneakers Shoes">
-      <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=300" alt="Shoes">
-      <h4>Casual White Shoes</h4>
-      <p class="price">&#8377;420</p>
-      <button class="btn-add" onclick="addToCart('Sneakers Shoes', 420)">Add to Cart</button>
-    </div>
- 
-    <div class="card" data-category="electronics" data-name="Wireless Earbuds">
+    <!-- 3 -->
+    <div class="card" data-category="electronics" data-name="Wireless Earbuds TWS">
       <img src="https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=300" alt="Earbuds">
-      <h4>Wireless Earbuds</h4>
-      <p class="price">&#8377;349</p>
-      <button class="btn-add" onclick="addToCart('Wireless Earbuds', 349)">Add to Cart</button>
+      <div class="card-info">
+        <h4>Wireless Earbuds TWS</h4>
+        <div class="price-row"><span class="price">&#8377;299</span><span class="original-price">&#8377;999</span><span class="discount">70% off</span></div>
+        <div class="badge-row"><span class="rating-badge">3.9 &#9733;</span><span class="delivery-tag">Free Delivery</span></div>
+        <button class="btn-add" onclick="addToCart('Wireless Earbuds TWS', 299)">Add to Cart</button>
+      </div>
     </div>
  
-    <div class="card" data-category="electronics" data-name="Smart Watch">
-      <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=300" alt="Watch">
-      <h4>Smart Fitness Watch</h4>
-      <p class="price">&#8377;599</p>
-      <button class="btn-add" onclick="addToCart('Smart Watch', 599)">Add to Cart</button>
+    <!-- 4 -->
+    <div class="card" data-category="men" data-name="Trendy Sneakers">
+      <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=300" alt="Sneakers">
+      <div class="card-info">
+        <h4>Trendy Casual Sneakers</h4>
+        <div class="price-row"><span class="price">&#8377;420</span><span class="original-price">&#8377;999</span><span class="discount">58% off</span></div>
+        <div class="badge-row"><span class="rating-badge">4.3 &#9733;</span><span class="delivery-tag">Free Delivery</span></div>
+        <button class="btn-add" onclick="addToCart('Trendy Casual Sneakers', 420)">Add to Cart</button>
+      </div>
     </div>
  
-    <div class="card" data-category="electronics" data-name="Bluetooth Speaker">
-      <img src="https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=300" alt="Speaker">
-      <h4>Mini Bluetooth Speaker</h4>
-      <p class="price">&#8377;399</p>
-      <button class="btn-add" onclick="addToCart('Bluetooth Speaker', 399)">Add to Cart</button>
+    <!-- 5 -->
+    <div class="card" data-category="electronics" data-name="Smart Fitness Band">
+      <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=300" alt="Smart Watch">
+      <div class="card-info">
+        <h4>Smart Fitness Watch</h4>
+        <div class="price-row"><span class="price">&#8377;599</span><span class="original-price">&#8377;1,999</span><span class="discount">70% off</span></div>
+        <div class="badge-row"><span class="rating-badge">4.4 &#9733;</span><span class="delivery-tag">Free Delivery</span></div>
+        <button class="btn-add" onclick="addToCart('Smart Fitness Watch', 599)">Add to Cart</button>
+      </div>
     </div>
  
-    <div class="card" data-category="home" data-name="Steel Lunch Box">
-      <img src="https://images.unsplash.com/photo-1584269600464-37b1b58a9fe7?w=300" alt="Lunch Box">
-      <h4>Steel Lunch Box</h4>
-      <p class="price">&#8377;320</p>
-      <button class="btn-add" onclick="addToCart('Steel Lunch Box', 320)">Add to Cart</button>
+    <!-- 6 -->
+    <div class="card" data-category="women" data-name="Anarkali Printed Kurti">
+      <img src="https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=300" alt="Kurti">
+      <div class="card-info">
+        <h4>Anarkali Printed Kurti</h4>
+        <div class="price-row"><span class="price">&#8377;279</span><span class="original-price">&#8377;699</span><span class="discount">60% off</span></div>
+        <div class="badge-row"><span class="rating-badge">4.1 &#9733;</span><span class="delivery-tag">Free Delivery</span></div>
+        <button class="btn-add" onclick="addToCart('Anarkali Printed Kurti', 279)">Add to Cart</button>
+      </div>
     </div>
  
-    <div class="card" data-category="home" data-name="Water Bottle">
-      <img src="https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=300" alt="Bottle">
-      <h4>Steel Water Bottle</h4>
-      <p class="price">&#8377;220</p>
-      <button class="btn-add" onclick="addToCart('Water Bottle', 220)">Add to Cart</button>
-    </div>
- 
-    <div class="card" data-category="home" data-name="Night Lamp">
+    <!-- 7 -->
+    <div class="card" data-category="home" data-name="LED Moon Night Lamp">
       <img src="https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=300" alt="Lamp">
-      <h4>Moon Night Lamp</h4>
-      <p class="price">&#8377;180</p>
-      <button class="btn-add" onclick="addToCart('Night Lamp', 180)">Add to Cart</button>
+      <div class="card-info">
+        <h4>3D Moon Night Lamp</h4>
+        <div class="price-row"><span class="price">&#8377;199</span><span class="original-price">&#8377;499</span><span class="discount">60% off</span></div>
+        <div class="badge-row"><span class="rating-badge">4.5 &#9733;</span><span class="delivery-tag">Free Delivery</span></div>
+        <button class="btn-add" onclick="addToCart('3D Moon Night Lamp', 199)">Add to Cart</button>
+      </div>
+    </div>
+ 
+    <!-- 8 -->
+    <div class="card" data-category="men" data-name="Black Leather Wallet">
+      <img src="https://images.unsplash.com/photo-1627123424574-724758594e93?w=300" alt="Wallet">
+      <div class="card-info">
+        <h4>Vintage Leather Wallet</h4>
+        <div class="price-row"><span class="price">&#8377;149</span><span class="original-price">&#8377;399</span><span class="discount">62% off</span></div>
+        <div class="badge-row"><span class="rating-badge">4.0 &#9733;</span><span class="delivery-tag">Free Delivery</span></div>
+        <button class="btn-add" onclick="addToCart('Vintage Leather Wallet', 149)">Add to Cart</button>
+      </div>
+    </div>
+ 
+    <!-- 9 -->
+    <div class="card" data-category="electronics" data-name="Portable Bluetooth Speaker">
+      <img src="https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=300" alt="Speaker">
+      <div class="card-info">
+        <h4>Mini Bluetooth Speaker</h4>
+        <div class="price-row"><span class="price">&#8377;380</span><span class="original-price">&#8377;899</span><span class="discount">57% off</span></div>
+        <div class="badge-row"><span class="rating-badge">4.2 &#9733;</span><span class="delivery-tag">Free Delivery</span></div>
+        <button class="btn-add" onclick="addToCart('Mini Bluetooth Speaker', 380)">Add to Cart</button>
+      </div>
+    </div>
+ 
+    <!-- 10 -->
+    <div class="card" data-category="home" data-name="Stainless Steel Water Bottle">
+      <img src="https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=300" alt="Bottle">
+      <div class="card-info">
+        <h4>Insulated Steel Bottle</h4>
+        <div class="price-row"><span class="price">&#8377;250</span><span class="original-price">&#8377;599</span><span class="discount">58% off</span></div>
+        <div class="badge-row"><span class="rating-badge">4.3 &#9733;</span><span class="delivery-tag">Free Delivery</span></div>
+        <button class="btn-add" onclick="addToCart('Insulated Steel Bottle', 250)">Add to Cart</button>
+      </div>
     </div>
   </div>
  
-  <!-- Bottom Bar -->
+  <!-- Sticky Bottom Cart Bar -->
   <div class="cart-bar">
-    <div>
-      <b>Items: <span id="cartCount">0</span></b> | 
-      <b>Total: &#8377;<span id="cartTotal">0</span></b>
+    <div class="cart-details" onclick="openCartModal()">
+      <span class="count" id="itemCount">0 Items selected</span>
+      <span class="total">&#8377;<span id="totalPrice">0</span></span>
     </div>
-    <button class="btn-cart" onclick="openCart()">View Cart</button>
+    <div class="cart-actions">
+      <button class="btn-view-cart" onclick="openCartModal()">View Cart</button>
+      <button class="btn-buy" onclick="checkout()">Order Now</button>
+    </div>
   </div>
  
-  <!-- Cart Popup -->
-  <div class="popup-overlay" id="cartPopup">
-    <div class="popup-box">
-      <h3 style="margin-top:0;">Your Yeesho Cart</h3>
-      <div id="cartList" style="max-height:160px; overflow-y:auto; margin-bottom:10px;"></div>
- 
-      <div style="margin-bottom:10px;">
-        <input type="text" id="coupon" placeholder="Coupon: YEESHO50" style="padding:6px; width:65%; font-size:12px;">
-        <button onclick="applyCoupon()" style="padding:6px 10px; background:#db2777; color:white; border:none; border-radius:4px; font-size:12px; cursor:pointer;">Apply</button>
+  <!-- Cart Modal -->
+  <div class="modal-overlay" id="cartModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 style="margin:0; font-size:16px;">Yeesho Cart (<span id="modalItemCount">0</span>)</h3>
+        <button onclick="closeCartModal()" style="border:none; background:none; font-size:18px; font-weight:bold; cursor:pointer;">✕</button>
       </div>
  
-      <div style="font-weight:bold; margin-bottom:12px; font-size:14px;">
-        Final Price: &#8377;<span id="finalPrice">0</span>
+      <div id="cartItemsList" style="max-height: 220px; overflow-y:auto;"></div>
+ 
+      <!-- Coupon Apply -->
+      <div class="coupon-box">
+        <input type="text" id="couponCode" class="coupon-input" placeholder="Enter Coupon (e.g. YEESHO50)">
+        <button class="btn-apply" onclick="applyCoupon()">Apply</button>
+      </div>
+      <div id="couponMsg" style="font-size:11px; font-weight:bold; color:#038d63;"></div>
+ 
+      <div style="display:flex; justify-content:space-between; font-weight:bold; border-top:1px solid #eee; padding-top:8px;">
+        <span>Final Payable Amount:</span>
+        <span style="color:#f43397;">&#8377;<span id="modalFinalPrice">0</span></span>
       </div>
  
       <div style="display:flex; gap:8px;">
-        <button onclick="closeCart()" style="flex:1; padding:8px; border:1px solid #ccc; background:#f0f0f0; border-radius:4px; cursor:pointer;">Close</button>
-        <button onclick="orderNow()" style="flex:1; padding:8px; background:#16a34a; color:white; border:none; font-weight:bold; border-radius:4px; cursor:pointer;">Buy Now</button>
+        <button onclick="clearAllCart()" style="flex:1; background:#f0f0f0; border:none; padding:10px; border-radius:6px; font-weight:bold; cursor:pointer;">Clear All</button>
+        <button onclick="checkout()" style="flex:2; background:#f43397; color:white; border:none; padding:10px; border-radius:6px; font-weight:bold; cursor:pointer;">Confirm Order (COD)</button>
       </div>
     </div>
   </div>
  
-  <!-- Login & Register Popup Modal -->
-  <div class="popup-overlay" id="authPopup">
-    <div class="popup-box">
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+  <!-- Login & Register Modal -->
+  <div class="modal-overlay" id="authModal">
+    <div class="modal-content" style="border-radius: 16px; margin: auto; max-width: 380px;">
+      <div class="modal-header">
         <h3 style="margin:0; font-size:16px;" id="authModalTitle">Account Access</h3>
-        <button onclick="closeAuthModal()" style="border:none; background:none; font-size:18px; cursor:pointer;">✕</button>
+        <button onclick="closeAuthModal()" style="border:none; background:none; font-size:18px; font-weight:bold; cursor:pointer;">✕</button>
       </div>
  
       <div class="auth-tabs">
@@ -182,17 +278,16 @@
  
       <!-- Login Form -->
       <form id="loginForm" onsubmit="handleLogin(event)">
-        <input type="email" id="loginEmail" class="auth-input" placeholder="Enter Email / Mobile" required>
-        <input type="password" id="loginPass" class="auth-input" placeholder="Enter Password" required>
+        <input type="text" id="loginEmail" class="auth-input" placeholder="Mobile Number or Email" required>
+        <input type="password" class="auth-input" placeholder="Enter Password" required>
         <button type="submit" class="btn-submit-auth">Login to Yeesho</button>
       </form>
  
       <!-- Register Form -->
       <form id="registerForm" onsubmit="handleRegister(event)" style="display:none;">
         <input type="text" id="regName" class="auth-input" placeholder="Full Name" required>
-        <input type="email" id="regEmail" class="auth-input" placeholder="Email Address" required>
-        <input type="tel" id="regPhone" class="auth-input" placeholder="Mobile Number" required>
-        <input type="password" id="regPass" class="auth-input" placeholder="Create Password" required>
+        <input type="text" id="regEmail" class="auth-input" placeholder="Mobile Number or Email" required>
+        <input type="password" class="auth-input" placeholder="Create Password" required>
         <button type="submit" class="btn-submit-auth">Create New Account</button>
       </form>
     </div>
@@ -201,17 +296,18 @@
   <script>
     let cart = [];
     let discount = 0;
+    let appliedCoupon = "";
     let currentCategory = 'all';
-    let currentUser = null; // Store logged-in user
+    let currentUser = null;
  
-    // --- Authentication Logic ---
+    // --- Authentication ---
     function openAuthModal(mode) {
-      document.getElementById('authPopup').style.display = 'flex';
+      document.getElementById('authModal').style.display = 'flex';
       switchAuthTab(mode);
     }
  
     function closeAuthModal() {
-      document.getElementById('authPopup').style.display = 'none';
+      document.getElementById('authModal').style.display = 'none';
     }
  
     function switchAuthTab(mode) {
@@ -225,8 +321,7 @@
     function handleRegister(e) {
       e.preventDefault();
       const name = document.getElementById('regName').value;
-      const email = document.getElementById('regEmail').value;
-      currentUser = { name: name, email: email };
+      currentUser = { name: name };
       updateUserHeader();
       closeAuthModal();
       alert("Registration Successful! Welcome to Yeesho, " + name);
@@ -234,9 +329,9 @@
  
     function handleLogin(e) {
       e.preventDefault();
-      const email = document.getElementById('loginEmail').value;
-      const name = email.split('@')[0]; // Extract name from email
-      currentUser = { name: name, email: email };
+      const input = document.getElementById('loginEmail').value;
+      const name = input.split('@')[0];
+      currentUser = { name: name };
       updateUserHeader();
       closeAuthModal();
       alert("Login Successful! Welcome back, " + name);
@@ -249,61 +344,78 @@
     }
  
     function updateUserHeader() {
-      const section = document.getElementById('userHeaderSection');
+      const area = document.getElementById('authHeaderArea');
       if (currentUser) {
-        section.innerHTML = `
-          <span style="font-size:12px; font-weight:bold;">👤 ${currentUser.name}</span>
-          <button class="btn-auth-header" onclick="handleLogout()" style="padding:4px 8px; font-size:10px;">Logout</button>
+        area.innerHTML = `
+          <div class="user-pill">
+            <span>👤 ${currentUser.name}</span>
+            <button class="btn-logout" onclick="handleLogout()">Logout</button>
+          </div>
         `;
       } else {
-        section.innerHTML = `
+        area.innerHTML = `
           <button class="btn-auth-header" onclick="openAuthModal('login')">Login / Register</button>
         `;
       }
     }
  
-    // --- Cart & Order Logic ---
+    // --- Cart Functions ---
     function addToCart(name, price) {
       cart.push({ name: name, price: price });
-      updateCart();
-      alert(name + " added to cart!");
+      updateCartDisplay();
+      alert("Added to Yeesho Cart: " + name);
     }
  
-    function removeItem(index) {
+    function removeCartItem(index) {
       cart.splice(index, 1);
-      updateCart();
-      renderCart();
+      updateCartDisplay();
+      renderCartItems();
     }
  
-    function updateCart() {
+    function clearAllCart() {
+      cart = [];
+      discount = 0;
+      appliedCoupon = "";
+      document.getElementById('couponMsg').innerText = "";
+      updateCartDisplay();
+      renderCartItems();
+      closeCartModal();
+    }
+ 
+    function updateCartDisplay() {
       let total = cart.reduce((sum, item) => sum + item.price, 0);
-      let final = Math.max(0, total - discount);
-      document.getElementById('cartCount').innerText = cart.length;
-      document.getElementById('cartTotal').innerText = final;
-      document.getElementById('finalPrice').innerText = final;
+      let finalTotal = Math.max(0, total - discount);
+ 
+      document.getElementById('totalPrice').innerText = finalTotal;
+      document.getElementById('modalFinalPrice').innerText = finalTotal;
+      document.getElementById('itemCount').innerText = cart.length + " Items selected";
+      document.getElementById('modalItemCount').innerText = cart.length;
     }
  
-    function openCart() {
-      renderCart();
-      document.getElementById('cartPopup').style.display = 'flex';
+    function openCartModal() {
+      renderCartItems();
+      document.getElementById('cartModal').style.display = 'flex';
     }
  
-    function closeCart() {
-      document.getElementById('cartPopup').style.display = 'none';
+    function closeCartModal() {
+      document.getElementById('cartModal').style.display = 'none';
     }
  
-    function renderCart() {
-      let list = document.getElementById('cartList');
+    function renderCartItems() {
+      let list = document.getElementById('cartItemsList');
       if (cart.length === 0) {
-        list.innerHTML = "<p style='color:#777; font-size:12px; text-align:center;'>Cart is empty!</p>";
+        list.innerHTML = "<p style='text-align:center; color:#888; font-size:13px; margin:20px 0;'>Your bag is empty! Add products first.</p>";
         return;
       }
       let html = "";
-      cart.forEach((item, index) => {
+      cart.forEach((item, idx) => {
         html += `
           <div class="cart-item">
-            <span>${item.name} - ₹${item.price}</span>
-            <button class="btn-cancel" onclick="removeItem(${index})">Cancel ✕</button>
+            <div>
+              <div style="font-size:13px; font-weight:600;">${item.name}</div>
+              <div style="font-size:12px; color:#f43397; font-weight:bold;">₹${item.price}</div>
+            </div>
+            <button class="btn-remove-item" onclick="removeCartItem(${idx})">Cancel ✕</button>
           </div>
         `;
       });
@@ -311,40 +423,53 @@
     }
  
     function applyCoupon() {
-      let code = document.getElementById('coupon').value.trim().toUpperCase();
-      if (code === "YEESHO50") {
-        discount = 50;
-        alert("Coupon Applied! ₹50 Discount");
-      } else {
-        alert("Invalid coupon! Try YEESHO50");
-      }
-      updateCart();
-    }
+      let code = document.getElementById('couponCode').value.trim().toUpperCase();
+      let total = cart.reduce((sum, item) => sum + item.price, 0);
  
-    function orderNow() {
-      if (cart.length === 0) {
-        alert("Your cart is empty!");
+      if (total === 0) {
+        alert("Add items to cart before applying coupon!");
         return;
       }
-      // Real E-commerce Flow: Check if user is logged in
+ 
+      if (code === "YEESHO50") {
+        discount = 50;
+        appliedCoupon = code;
+        document.getElementById('couponMsg').innerText = "✓ Coupon YEESHO50 Applied! ₹50 Discount";
+      } else if (code === "SPECIAL20") {
+        discount = Math.round(total * 0.20);
+        appliedCoupon = code;
+        document.getElementById('couponMsg').innerText = "✓ Coupon SPECIAL20 Applied! 20% Discount (₹" + discount + ")";
+      } else {
+        alert("Invalid Coupon Code! Try YEESHO50 or SPECIAL20");
+        return;
+      }
+      updateCartDisplay();
+    }
+ 
+    function checkout() {
+      if (cart.length === 0) {
+        alert("Your cart is empty! Select products to order.");
+        return;
+      }
+ 
+      // Check if logged in before placing order
       if (!currentUser) {
         alert("Please Login / Register to complete your order!");
-        closeCart();
+        closeCartModal();
         openAuthModal('login');
         return;
       }
  
-      alert("🎉 Order Placed Successfully for " + currentUser.name + "!\nPayment: Cash on Delivery (COD)\nDelivery: Free");
-      cart = [];
-      discount = 0;
-      updateCart();
-      closeCart();
+      let total = cart.reduce((sum, item) => sum + item.price, 0);
+      let finalTotal = Math.max(0, total - discount);
+      alert("🎉 Order Confirmed on Yeesho for " + currentUser.name + "!\n\nTotal Items: " + cart.length + "\nFinal Price: Rs." + finalTotal + "\nPayment: Cash on Delivery (COD)\nDelivery: Free");
+      clearAllCart();
     }
  
-    function setCategory(cat, btn) {
-      currentCategory = cat;
-      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
+    function setCategory(category, element) {
+      currentCategory = category;
+      document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+      element.classList.add('active');
       filterProducts();
     }
  
